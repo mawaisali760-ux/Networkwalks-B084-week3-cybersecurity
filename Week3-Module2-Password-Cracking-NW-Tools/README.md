@@ -15,8 +15,8 @@ no installation required, using the same underlying idea as John the
 Ripper.
 
 ## Objective
-Crack the passwords of three provided protected PDF files using the
-NetworkWalks Hash Calculator and Password Cracker tools.
+Crack the password of the dedicated lab file for this module, and
+additionally verify the approach against the same PDFs used in Module 1.
 
 ## Environment Used
 Browser-based — works identically on Windows or Kali Linux since both
@@ -24,98 +24,79 @@ tools run entirely client-side.
 
 ---
 
-## PDF 1: My Locked PDF1.pdf
+## Primary Task: My Locked PDF1 (for NW Tools Lab WK3-PM2).pdf
 
 **Step 1 — Extract hash:**
-Uploaded `My Locked PDF1.pdf` (266.9 KB) to the Hash Calculator, which
-extracted a crackable `$pdf$...` hash (128-bit, Revision R4/V4).
+Uploaded `My Locked PDF1 (for NW Tools Lab WK3-PM2).pdf` (65.2 KB) to the
+Hash Calculator, which extracted a crackable `$pdf$...` hash (128-bit,
+Revision R4/V4).
 
-![Hash extracted - PDF1](screenshots/01-pdf1-hash.png)
-
-**Step 2 — Run the Password Cracker:**
-Pasted the hash and ran the dictionary attack. The tool tried 3,463 of
-1,795,707 words before finding a match.
-
-![Password cracked - PDF1](screenshots/02-pdf1-cracked.png)
-
-**Cracked password:** `good-luck`
-
----
-
-## PDF 2: My Locked PDF2.pdf
-
-**Step 1 — Extract hash:**
-Uploaded `My Locked PDF2.pdf` (204.7 KB) and extracted its hash.
-
-![Hash extracted - PDF2](screenshots/03-pdf2-hash.png)
+![Hash extracted](screenshots/01-nwlab-pdf1-hash.png)
 
 **Step 2 — Run the Password Cracker:**
-Pasted the hash and ran the attack. Matched after just 22 attempts.
+Pasted the hash into the Password Cracker and ran the dictionary attack.
 
-![Password cracked - PDF2](screenshots/04-pdf2-cracked.png)
+![Password cracked](screenshots/02-nwlab-pdf1-cracked.png)
 
 **Cracked password:** `password1`
 
----
+**Step 3 — Verify by opening the PDF:**
+Opened the file and entered `password1` to unlock it, confirming
+successful recovery and capturing the module-specific flag.
 
-## PDF 3: My Locked PDF3.pdf
+![Flag captured](screenshots/03-nwlab-flag.png)
 
-**Step 1 — Extract hash:**
-Uploaded `My Locked PDF3.pdf` (313.5 KB) and extracted its hash.
-
-![Hash extracted - PDF3](screenshots/05-pdf3-hash.png)
-
-**Step 2 — Run the Password Cracker:**
-Pasted the hash and ran the attack. Matched after 2,085 attempts.
-
-![Password cracked - PDF3](screenshots/06-pdf3-cracked.png)
-
-**Cracked password:** `1qaz2wsx`
+**Flag captured:** `nw{networkwalks_flag1_jtr_270521_1}`
 
 ---
 
-## Verification — Flags Captured
-Each unlocked PDF revealed a unique congratulatory flag, confirming
-successful password recovery for all three files:
+## Additional Verification: Module 1 PDFs
 
-![Flag 1](screenshots/07-flag-1.png)
-![Flag 2](screenshots/08-flag-2.png)
-![Flag 3](screenshots/09-flag-3.png)
+To confirm the NetworkWalks tools produce identical results to JTR, the
+same three PDFs from Module 1 were also run through the Hash Calculator
+and Password Cracker:
+
+| # | PDF File | Attempts Needed | Cracked Password |
+|---|----------|---------------------|-----------------------|
+| 1 | My Locked PDF1.pdf | 3,463 / 1,795,707 | `good-luck` |
+| 2 | My Locked PDF2.pdf | 22 / 1,795,707 | `password1` |
+| 3 | My Locked PDF3.pdf | 2,085 / 1,795,707 | `1qaz2wsx` |
+
+**Screenshots:**
+![PDF1 hash](screenshots/04-pdf1-hash.png)
+![PDF1 cracked](screenshots/05-pdf1-cracked.png)
+![PDF2 hash](screenshots/06-pdf2-hash.png)
+![PDF2 cracked](screenshots/07-pdf2-cracked.png)
+![PDF3 hash](screenshots/08-pdf3-hash.png)
+![PDF3 cracked](screenshots/09-pdf3-cracked.png)
 
 ---
-
-## Results Summary
-
-| # | PDF File | Hash Extracted | Attempts Needed | Cracked Password |
-|---|----------|------------------|---------------------|-----------------------|
-| 1 | My Locked PDF1.pdf | ✅ | 3,463 / 1,795,707 | `good-luck` |
-| 2 | My Locked PDF2.pdf | ✅ | 22 / 1,795,707 | `password1` |
-| 3 | My Locked PDF3.pdf | ✅ | 2,085 / 1,795,707 | `1qaz2wsx` |
 
 ## Findings
-All three passwords were recovered quickly, but the **number of attempts
-needed varied significantly** — `password1` was found almost immediately
-(22 attempts) since it appears very early in the wordlist, while
-`good-luck` and `1qaz2wsx` needed thousands of attempts despite still
-being common patterns. This shows that **wordlist ordering matters**:
-passwords placed earlier in a dictionary are cracked faster regardless
-of apparent complexity.
+The dedicated lab file's password (`password1`) was recovered quickly
+since it sits early in the wordlist — confirming the result obtained in
+Module 1 using JTR for the same password pattern. Running the same
+three Module 1 PDFs through this browser tool produced **identical
+cracked passwords** to JTR, validating that both approaches (local JTR
+vs. browser-based NetworkWalks tools) implement the same dictionary
+attack logic and reach the same result.
 
 ## Comparison with Module 1 (JTR)
 | Criteria | JTR (Johnny, Module 1) | NetworkWalks Tools (Module 2) |
 |----------|---------------------------|-----------------------------------|
 | Installation required | Johnny GUI + John binary | None — runs in browser |
-| Passwords cracked | good-luck, password1, 1qaz2wsx | good-luck, password1, 1qaz2wsx |
+| Dedicated lab file password | — | `password1` |
+| Shared PDFs' passwords | good-luck, password1, 1qaz2wsx | good-luck, password1, 1qaz2wsx (identical) |
 | Processing location | Local on device | Local in-browser (PDF never uploaded) |
-| Wordlist size | John's default jumbo wordlist | 1,795,707-word list (same as rockyou-style lists) |
+| Wordlist size | John's default jumbo wordlist | 1,795,707-word list |
 | Speed shown | 100% cracked, time not displayed | Live attempts/sec shown (e.g. 15 pw/s) |
 
 ## Summary
-The NetworkWalks Hash Calculator and Password Cracker reproduced the
-exact same results as JTR in Module 1, using the identical underlying
-approach (extract hash → dictionary attack), but packaged as a
-browser-based tool with a visible live attempt counter. This made it
-easy to directly observe how wordlist position affects cracking speed.
+Both the dedicated NW Tools lab file and the reused Module 1 PDFs were
+cracked successfully, with results matching JTR exactly. This confirms
+the NetworkWalks Hash Calculator and Password Cracker are a reliable,
+installation-free alternative to John the Ripper for this type of
+password recovery exercise.
 
 ## Key Takeaway
 Regardless of which tool is used — professional (JTR) or
