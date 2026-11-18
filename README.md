@@ -1,6 +1,6 @@
 <div align="center">
 
-# Week 2 – Password Cracking
+# Week 3 – Password Cracking
 
 Week 3 – Project Modules 1 &amp; 2: Password Cracking
 </div>
